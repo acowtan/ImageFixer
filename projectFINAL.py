@@ -18,9 +18,11 @@ row_len=len(im[1,:])
 def GetShift (a=list, b=list):
     f1=fft.fft(a)
     f2=fft.fft(b)
-    vect= f1*(np.conj(f2))
-    corr=fft.ifft(vect)
-    shift= np.argmax(corr)
+    mult= f1*(np.conj(f2))
+    #finds the cross-correlation of the lines
+    crosscorr=fft.ifft(mult)
+    #finds the location of the maximum value (peak) of the cross-correlation
+    shift= np.argmax(crosscorr)
     return shift
 
 #main loop, which runs through the rows of the image, starting from the 3rd row
